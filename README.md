@@ -1,8 +1,14 @@
 # u-blox-nina-b3-javascript
 Repository with JavaScript libraries and examples for u-blox BLE module NINA-B3
 
-Please select branch based on the SW version of your module to get correct version
-of libraries and examples.
+Please create a workspace where you put the your application or the example
+you intend to run, together with your init file and the needed libraries.
+
+For help on Getting Started plese refer to the *JavaScript Application Note* available
+at u-blox.com: [JavaScript Application Note](https://www.u-blox.com/en/search?keywords=UBX-18031558)
+
+Also see the JavaScript API library documentation:
+[Library Documentation](libraries/docs/md/README.md)
 
 ## Disclaimer
 Copyright (C) u-blox 

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ubx_gateway.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ubx_gateway.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let gateway =
+{
+    bind: ffi('int mjsApiGatewayBind(int, int, int, void*)'),
+    release: ffi('int mjsApiGatewayRelease(int)'),
+
+    RESULT_OK: 0,
+    RESULT_ERROR: -1,
+
+    NEW_CHANNEL: 99,
+};
+
+/**
+* The Stream Bind concept.&lt;br>
+* Any stream has data flowing in and out of it. Hence every stream
+* is made of two channels e.i., source and destination channels
+* 
+* Source channel
+* A stream receives its incoming data on this channel
+*
+* Destination channel
+* A stream sends outgoing data on this channel
+*
+* The source channel (input) of a stream can be connected to
+* one or multiple destination (output) channels of other streams
+*
+* Example scenario:
+* Sending multiple sensors' data to a remote device over SPS stream
+* 1. Create and open an SPS stream: stream1, i2c stream from temperature sensor: stream2
+     and i2c stream from accelerometer senor: stream3
+* 2. Create a new stream1src channel and bind it to stream1
+* 3. Create a new stream2dest channel and bind it to stream2
+* 4. Create a new stream3dest channel and bind it to stream3
+* 5. Bind stream2dest and stream3dest channel to stream1src channels
+* The data from stream2 and stream3 should now be directed into stream1
+*
+*/
+
+/**
+* Connects a stream to a source and a destination channel.&lt;br>
+*
+* To do a one-to-one bind, first bind stream A to source channel
+* 1 and destination channel 2 and then connect stream B to
+* source channel 2 and destination 1. 
+*
+* @param {int} - id Id of the stream
+* @param {int} - srcChannel Source channel
+* @param {int} - dstChannel Destination channel
+* &lt;br>&amp;nbsp;&amp;nbsp; Use gateway.NEW_CHANNEL if a channel is not known
+* before, the system will provide an unused channel id. (One channel
+* can be known and the other new).
+* @return Result - Object with result and channels
+* &lt;br>&amp;nbsp;&amp;nbsp; result gateway.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; result gateway.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; source Source channel used
+* &lt;br>&amp;nbsp;&amp;nbsp; destination Destination channel used
+*/
+let GatewayBind = function(id, srcChannel, dstChannel) {
+    let out = "      ";
+    let result = gateway.bind(id, srcChannel, dstChannel, out);
+    let source = out.at(0);
+    let destination = out.at(1);
+    return {
+        result: result,
+        source : source,
+        destination: destination,
+    }
+};
+
+/**
+* Release a stream from its connected channels.&lt;br>
+* @Note Other streams connected to the channels will not
+* be notified. To release a one-to-one bind, run this command
+* on both streams.
+* @param {int} streamId - Stream id
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gateway.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gateway.RESULT_ERROR
+*/
+let GatewayRelease = function(streamId) {
+    return gateway.release(streamId);
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 30 2019 09:14:52 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

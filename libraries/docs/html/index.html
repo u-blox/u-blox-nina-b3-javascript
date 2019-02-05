@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>JavaScript libraries</h1><h2>Usage</h2><p>Load the needed libraries from your <em>init.js</em> file.</p>
+<p>For example:</p>
+<pre class="prettyprint source"><code>load('ubx_system.js');
+load('ubx_gpio.js');</code></pre><h2>BLE GAP library</h2><p>The GAP library is implemented in the <em>ubx_ble_gap.js</em> file.</p>
+<p>The BLE GAP library contains operations for GAP operations, for example
+scanning for other BLE devices.</p>
+<h2>BLE Security library</h2><p>The Security library is implemented in the <em>ubx_ble_sec.js</em> file.</p>
+<p>The BLE Security library contains operations related to Bluetooth Security, like pairing.</p>
+<h2>Gateway library</h2><p>The Gateway library is implemented in the <em>ubx_gateway.js</em> file.</p>
+<p>The Gateway library implements gateways for the  u-blox unique Stream concept, that
+allows to connect different data streams.</p>
+<h2>GATT Server library</h2><p>The GATT Server library is implemented in the <em>ubx_gatt_server.js</em> file.</p>
+<p>The GATT Server library contains operations related to GATT services and characteristics.
+This involves operations for</p>
+<ul>
+<li>Creating services and characteristics</li>
+<li>Handling callbacks for GATT events</li>
+</ul>
+<h2>GPIO library</h2><p>The GPIO library is implemented in the <em>ubx_gpio.js</em> file.</p>
+<p>The GPIO library contains operations related to GPIO pins, like</p>
+<ul>
+<li>Reading and setting GPIO pins</li>
+<li>Handling callbacks for GPIO triggers</li>
+</ul>
+<h2>Miscellaneous library</h2><p>The Miscellaneous library is implemented in the <em>ubx_misc.js</em> file.</p>
+<p>This library contains functionality for executing AT commands from within the
+JavaScript code.</p>
+<h2>Stream library</h2><p>The Stream library is implemented in the <em>ubx_stream.js</em> file.</p>
+<p>The Stream library implements the u-blox stream concept.
+Streams are a very powerful way to connect different data streams,
+for example taking i2c data from a sensor and send to an SPS stream.</p>
+<h2>System library</h2><p>The System library is implemented in the <em>ubx_system.js</em> file.</p>
+<p>This library holds API calls that deals with system behavior, like functions
+to set the system in deep sleep, clock operations and checking memory consumption.</p>
+<h2>Timer library</h2><p>The System library is implemented in the <em>ubx_timer.js</em> file.</p>
+<p>The Timer library has API Calls for starting and stopping timers.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 30 2019 09:14:52 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

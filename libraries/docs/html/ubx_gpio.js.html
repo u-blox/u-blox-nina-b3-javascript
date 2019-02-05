@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ubx_gpio.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ubx_gpio.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let gpio =
+{
+    open: ffi('int mjsApiGpioOpen(int, int, int)'),
+    openWithCallback: ffi('int mjsApiGpioOpenWithCallback(int, int, int, void ()(int, int, userdata), userdata)'),
+    del: ffi('int mjsApiGpioDelete(int)'),
+    set: ffi('int mjsApiGpioSet(int, int)'),
+    get: ffi('int mjsApiGpioGet(int)'),
+    isOpen: ffi('int mjsApiGpioIsOpen(int)'),
+    isValid: ffi('int mjsApiGpioIsValid(int)'),
+
+	RESULT_OK: 0,
+    RESULT_ERROR: -1,
+	
+    VALUE_INVALID: -1,
+    VALUE_LOW: 0,
+    VALUE_HIGH: 1,
+
+    MODE_INVALID: 0,
+    MODE_INPUT_PU: 1,
+    MODE_INPUT_PD: 2,
+    MODE_INPUT_FLOAT: 3,
+    MODE_OUTPUT: 4,
+
+    EDGE_NONE: 0,
+    EDGE_FALLING: 1,
+    EDGE_RISING: 2,
+    EDGE_BOTH: 3,
+};
+
+
+/**
+* Open a GPIO pin.
+* @param {int} pin - Module pin number.
+* @param {int} mode - Pin mode.
+* @param {int} value - Initial value for output pin.
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioOpen = function(pin, mode, value) {
+    return gpio.open(pin, mode, value);
+};
+
+/**
+* Open a GPIO pin with a callback.
+* @alias GpioCallback
+* @param {int} pin - Module pin number.
+* @param {int} edge - Trigger edge.
+* @param {int} mode - Pin mode.
+* @param {triggerCallback} callback - Callback.
+* @param {any} userdata - Identifier when callback is triggered. Can be any type.
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioOpenWithCallback = function(pin, edge, mode, callback, userdata) {
+    return gpio.openWithCallback(pin, edge, mode, callback, userdata);
+};
+
+/**
+* Callback object.
+* @callback triggerCallback
+* @param {int} pin - Pin that triggered the callback
+* @param {int} value - New value of the pin
+* @param {any} userdata - Userdata from the original call
+* @return {any} Result
+*/
+let GpioCallback = function(pin, value, userdata) {};
+
+/**
+* Delete a GPIO object.
+* @param {int} pin - Module pin number.
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioDelete = function(pin) {
+    return gpio.del(pin);
+};
+
+/**
+* Set pin state on an open output pin.
+* @param {int} pin - Module pin number.
+* @param {int} value - Valid:
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.VALUE_LOW
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.VALUE_HIGH
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioSet = function(pin, value) {
+    return gpio.set(pin, value);
+};
+
+/**
+* Get the value of an open pin.
+* @param {int} pin - Module pin number.
+* @return {int} Value
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.VALUE_INVALID
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.VALUE_LOW
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.VALUE_HIGH
+*/
+let GpioGet = function(pin) {
+    return gpio.get(pin);
+};
+
+/**
+* Check if a pin is open.
+* @param {int} pin - Module pin number.
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioIsOpen = function(pin) {
+    return gpio.isOpen(pin);
+};
+
+/**
+* Check if a pin is valid.
+* @param {int} pin - Module pin number.
+* @return {int} Result
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gpio.RESULT_ERROR
+*/
+let GpioIsValid = function(pin) {
+    return gpio.isValid(pin);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 30 2019 09:14:52 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

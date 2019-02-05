@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ubx_gatt_server.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ubx_gatt_server.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let gatts =
+{
+    setEventCallback: ffi('int mjsApiGattsSetEventCallback(int (*)(int, int, int, int, char*, userdata), userdata)'),
+    createService: ffi('int mjsApiGattsCreateService(char*)'),
+    createChar: ffi('int mjsApiGattsCreateCharacteristic(int, char*, int, int, char*, void*)'),
+    createDesc: ffi('int mjsApiGattsDesc(int, char*, int, char*)'),
+    send: ffi('int mjsApiGattsSend(int, int, int, char*)'),
+    writeAttr: ffi('int mjsApiGattsWriteAttribute(int, char*)'),
+    readRequestResponse: ffi('int mjsApiGattsReadRequestResponse(int, char*)'),
+
+    EVENT_CONNECTED: 0,
+    EVENT_DISCONNECTED: 1,
+    EVENT_INDICATION_RESPONSE: 2,
+    EVENT_DATA: 3,
+    EVENT_READ_REQUSET: 4,
+
+    UUID_TYPE_16: 2,
+    UUID_TYPE_128: 16,
+
+    SEND_INDICATION: 1,
+    SEND_NOTIFICATION: 2,
+
+    PROPERTY_BROADCAST: 0x01,
+    PROPERTY_READ: 0x02,
+    PROPERTY_WRITE_NO_RESP: 0x04,
+    PROPERTY_WRITE: 0x08,
+    PROPERTY_NOTIFY: 0x10,
+    PROPERTY_INDICATE: 0x20,
+    PROPERTY_WRITE_SIGNED: 0x40,
+
+    SECURITY_READ_NONE: 0x01,
+    SECURITY_READ_NON_AUTH: 0x02,
+    SECURITY_WRITE_NONE: 0x10,
+    SECURITY_WRITE_NON_AUTH: 0x20,
+
+    RESULT_OK: 0,
+    RESULT_ERROR: -1,
+    RESULT_ERROR_INVALID_UUID: -2,
+    RESULT_ERROR_INVALID_DATA_VALUE: -3,
+    RESULT_ERROR_INVALID_PROPERTIES: -4,
+    RESULT_ERROR_INVALID_SECURITY_PARAM: -5,
+};
+
+/**
+* Callback object for GATT server events.
+* @callback gattsEventCallback
+* @param {int} event -
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.EVENT_CONNECTED
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.EVENT_DISCONNECTED
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.EVENT_INDICATION_RESPONSE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.EVENT_DATA
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.EVENT_READ_REQUSET
+* @param {int} connectionHandle - GAP connection that triggered the callback.
+* @param {int} attributeHandle - GATT attribute.
+* @param {int} dataLength - Length of data written by the client.
+* @param {string} clientData - Actual data written by the client.
+* @param {any} Userdata - Data from the original call.
+* @return {void}
+*/
+let GattsEventCallback = function (event, connectionHandle, attributeHandle, dataLength, clientData, userdata) { };
+
+/**
+* Set GATT event callback.
+* @param {gattsEventCallback} callback Function that will be called on all events.
+* @param {string} userdata - Identifier when callback is triggered. Can be any type.
+* @return {int} Error Code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+*/
+let GattsSetEventCallback = function (callback, userdata) {
+    return gatts.setEventCallback(callback, userdata);
+};
+
+/**
+* Create a new GATT service.
+* @param {int} uuidType - Type of characteristic UUID.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_16
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_128
+* @param {string} uuid - UUID of service with hexadecimal characters.
+* @return {int} non-zero service handle value or error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_UUID
+*/
+let GattsServiceCreate = function (uuidType, uuid) {
+    return gatts.createService(chr(uuidType) + uuid);
+};
+
+/**
+* Create a new GATT characteristic.
+* @param {int} serviceHandle - Handle value of the parent service.
+* @param {int} uuidType - Type of characteristic UUID.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_16
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_128
+* @param {string} uuid - UUID of characteristic with hexadecimal characters.
+* @param {int} properties - Properties of characteristic. More than one property can be combined.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_BROADCAST
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_READ
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_WRITE_NO_RESP
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_WRITE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_NOTIFY
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_INDICATE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.PROPERTY_WRITE_SIGNED
+* @param {int} security - Link layer security requirement of characteristic. Read security and write security should be combined.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_READ_NONE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_READ_NON_AUTH
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_WRITE_NONE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_WRITE_NON_AUTH
+* @param {string} initialValue - Initial value of the characteristic.
+* &lt;br>If an empty string is provided, an explicit read authorization request event will be generated for every read by clients.
+* @param {int} initialValueLength - Number of bytes of initial value.
+* @return {int} Non-zero characteristic value handle or error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_UUID
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_DATA_VALUE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_PROPERTIES
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_SECURITY_PARAM&lt;br>
+* @return {int} Non-zero characteristic value handle.&lt;br>
+* @return {int} Non-zero client characteristic configuration descriptor handle.
+*/
+let GattsCharacteristicCreate = function (serviceHandle, uuidType, uuid, properties, security, initialValue, initialValueLength) {
+    let out = "      ";
+    let result = gatts.createChar(serviceHandle, chr(uuidType) + uuid, properties, security, chr(initialValueLength) + initialValue, out);
+
+    let cccdHandle = out.at(1);
+    let valueHandle = out.at(0);
+    return {
+        result: result,
+        cccdHandle: cccdHandle,
+        valueHandle: valueHandle,
+    }
+};
+
+/**
+* Create a new GATT descriptor.
+* @param {int} charHandle - Handle value of the characteristic.
+* @param {int} uuidType - Type of descriptor UUID.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_16
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.UUID_TYPE_128
+* @param {string} uuid - UUID of descriptor with hexadecimal characters.
+* @param {int} security - Link layer security requirement of characteristic. Read security and write security should be combined.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_READ_NONE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_READ_NON_AUTH
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_READ_AUTH
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_WRITE_NONE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_WRITE_NON_AUTH
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SECURITY_WRITE_AUTH
+* @param {string} initialValue - Initial value of the descriptor.
+* @param {int} initialValueLength - Number of bytes of initial value.
+* @return {int} Non-zero descriptor handle or error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_UUID
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_DATA_VALUE
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_SECURITY_PARAM
+*/
+let GattsDescriptorCreate = function (charHandle, uuidType, uuid, security, initialValue, initialValueLength) {
+    return gatts.createDesc(charHandle, chr(uuidType) + uuid, security, chr(initialValueLength) + initialValue);
+};
+
+/**
+* Send data to a remote client.
+* @param {int} type - Type of packet to send.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SEND_INDICATION
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.SEND_NOTIFICATION
+* @param {string} connectionHandle - Handle of the GAP connection.
+* @param {int} attributeHandle - Handle of the attribute that sends the data.
+* @param {string} data - Input data in hex format.
+* @param {int} dataLength - Number of bytes of data.
+* @return {int} Error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_DATA_VALUE
+*/
+let GattsSend = function (type, connectionHandle, attributeHandle, data, dataLength) {
+    return gatts.send(type, connectionHandle, attributeHandle, chr(dataLength) + data);
+};
+
+/**
+* Write a new value to an attribute without updating remote clients.
+* @param {int} attrHandle - Handle value of the attribute.
+* @param {string} data - Updated data in hex format.
+* @param {int} dataLength - Number of bytes of data.
+* @return {int} Error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_DATA_VALUE
+*/
+let GattsWrite = function (attrHandle, data, dataLength) {
+    return gatts.writeAttr(attrHandle, chr(dataLength) + data);
+};
+
+/**
+* Respond to an unsolicited read request event.
+* @param {int} connectionHandle - Handle of the GAP connection.
+* @param {string} data - Data to be updated.
+* @param {int} dataLength - Number of bytes of data.
+* @return {int} Error code.
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_OK
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR
+* &lt;br>&amp;nbsp;&amp;nbsp; gatts.RESULT_ERROR_INVALID_DATA_VALUE
+*/
+let GattsReadResp = function (connectionHandle, data, dataLength) {
+    return gatts.readRequestResponse(connectionHandle, chr(dataLength) + data);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 30 2019 09:14:52 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
