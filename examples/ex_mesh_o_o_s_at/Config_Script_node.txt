@@ -1,0 +1,8 @@
+# Bind element 0, model 0, to application key 0
+AT+UBTMAKB=0,0,0
+
+# Dummy subscription address to take node to state 4, see Table 2
+AT+UBTMSUB=0,0,C001
+
+# Restart module
+AT+CPWROFF

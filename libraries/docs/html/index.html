@@ -43,42 +43,73 @@
 
 
     <section>
-        <article><h1>JavaScript libraries</h1><h2>Usage</h2><p>Load the needed libraries from your <em>init.js</em> file.</p>
+        <article><h1>JavaScript libraries</h1>
+<h2>Usage</h2>
+<p>Load the needed libraries from your <em>init.js</em> file.</p>
 <p>For example:</p>
 <pre class="prettyprint source"><code>load('ubx_system.js');
-load('ubx_gpio.js');</code></pre><h2>BLE GAP library</h2><p>The GAP library is implemented in the <em>ubx_ble_gap.js</em> file.</p>
+load('ubx_gpio.js');
+</code></pre>
+<h2>BLE GAP library</h2>
+<p>The GAP library is implemented in the <em>ubx_ble_gap.js</em> file.</p>
 <p>The BLE GAP library contains operations for GAP operations, for example
 scanning for other BLE devices.</p>
-<h2>BLE Security library</h2><p>The Security library is implemented in the <em>ubx_ble_sec.js</em> file.</p>
+<p><a href="ubx_ble_gap.md">BLE GAP library</a></p>
+<h2>BLE Security library</h2>
+<p>The Security library is implemented in the <em>ubx_ble_sec.js</em> file.</p>
 <p>The BLE Security library contains operations related to Bluetooth Security, like pairing.</p>
-<h2>Gateway library</h2><p>The Gateway library is implemented in the <em>ubx_gateway.js</em> file.</p>
+<p><a href="ubx_ble_sec.md">BLE SEC library</a></p>
+<h2>Gateway library</h2>
+<p>The Gateway library is implemented in the <em>ubx_gateway.js</em> file.</p>
 <p>The Gateway library implements gateways for the  u-blox unique Stream concept, that
 allows to connect different data streams.</p>
-<h2>GATT Server library</h2><p>The GATT Server library is implemented in the <em>ubx_gatt_server.js</em> file.</p>
+<p><a href="ubx_gateway.md">Gateway library</a></p>
+<h2>GATT Server library</h2>
+<p>The GATT Server library is implemented in the <em>ubx_gatt_server.js</em> file.</p>
 <p>The GATT Server library contains operations related to GATT services and characteristics.
 This involves operations for</p>
 <ul>
 <li>Creating services and characteristics</li>
 <li>Handling callbacks for GATT events</li>
 </ul>
-<h2>GPIO library</h2><p>The GPIO library is implemented in the <em>ubx_gpio.js</em> file.</p>
+<p><a href="ubx_gatt_server.md">GATT Server library</a></p>
+<h2>GPIO library</h2>
+<p>The GPIO library is implemented in the <em>ubx_gpio.js</em> file.</p>
 <p>The GPIO library contains operations related to GPIO pins, like</p>
 <ul>
 <li>Reading and setting GPIO pins</li>
 <li>Handling callbacks for GPIO triggers</li>
 </ul>
-<h2>Miscellaneous library</h2><p>The Miscellaneous library is implemented in the <em>ubx_misc.js</em> file.</p>
+<p><a href="ubx_gpio.md">GPIO library</a></p>
+<h2>Mesh library</h2>
+<p>The Mesh Library is implemented in the <em>ubx_mesh.js</em> file.</p>
+<p>The Mesh Library contains functionality for</p>
+<ul>
+<li>Defining and creatingthe model to be used on the node</li>
+<li>Normal and Reliable Publishing and Replying</li>
+<li>Handling callbacks for Mesh events</li>
+</ul>
+<p><a href="ubx_mesh.md">Mesh library</a></p>
+<h2>Miscellaneous library</h2>
+<p>The Miscellaneous library is implemented in the <em>ubx_misc.js</em> file.</p>
 <p>This library contains functionality for executing AT commands from within the
 JavaScript code.</p>
-<h2>Stream library</h2><p>The Stream library is implemented in the <em>ubx_stream.js</em> file.</p>
+<p><a href="ubx_misc.md">Miscellaneous library</a></p>
+<h2>Stream library</h2>
+<p>The Stream library is implemented in the <em>ubx_stream.js</em> file.</p>
 <p>The Stream library implements the u-blox stream concept.
 Streams are a very powerful way to connect different data streams,
 for example taking i2c data from a sensor and send to an SPS stream.</p>
-<h2>System library</h2><p>The System library is implemented in the <em>ubx_system.js</em> file.</p>
+<p><a href="ubx_stream.md">Stream library</a></p>
+<h2>System library</h2>
+<p>The System library is implemented in the <em>ubx_system.js</em> file.</p>
 <p>This library holds API calls that deals with system behavior, like functions
 to set the system in deep sleep, clock operations and checking memory consumption.</p>
-<h2>Timer library</h2><p>The System library is implemented in the <em>ubx_timer.js</em> file.</p>
-<p>The Timer library has API Calls for starting and stopping timers.</p></article>
+<p><a href="ubx_system.md">System Documentation</a></p>
+<h2>Timer library</h2>
+<p>The System library is implemented in the <em>ubx_timer.js</em> file.</p>
+<p>The Timer library has API Calls for starting and stopping timers.</p>
+<p><a href="ubx_timer.md">Timer library</a></p></article>
     </section>
 
 
@@ -89,13 +120,13 @@ to set the system in deep sleep, clock operations and checking memory consumptio
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BleGapDiscover">BleGapDiscover</a></li><li><a href="global.html#BleGapDiscoverCallback">BleGapDiscoverCallback</a></li><li><a href="global.html#BleGapDiscoverComplCallback">BleGapDiscoverComplCallback</a></li><li><a href="global.html#BleGapGetLocalAddr">BleGapGetLocalAddr</a></li><li><a href="global.html#BleGapSetAdvData">BleGapSetAdvData</a></li><li><a href="global.html#BleGapSetDiscoverCallback">BleGapSetDiscoverCallback</a></li><li><a href="global.html#BleSecEraseAllPeersRequest">BleSecEraseAllPeersRequest</a></li><li><a href="global.html#BleSecSetPairingMode">BleSecSetPairingMode</a></li><li><a href="global.html#GatewayBind">GatewayBind</a></li><li><a href="global.html#GatewayRelease">GatewayRelease</a></li><li><a href="global.html#GattsCharacteristicCreate">GattsCharacteristicCreate</a></li><li><a href="global.html#GattsDescriptorCreate">GattsDescriptorCreate</a></li><li><a href="global.html#GattsReadResp">GattsReadResp</a></li><li><a href="global.html#GattsSend">GattsSend</a></li><li><a href="global.html#GattsServiceCreate">GattsServiceCreate</a></li><li><a href="global.html#GattsSetEventCallback">GattsSetEventCallback</a></li><li><a href="global.html#GattsWrite">GattsWrite</a></li><li><a href="global.html#GpioCallback">GpioCallback</a></li><li><a href="global.html#GpioDelete">GpioDelete</a></li><li><a href="global.html#GpioGet">GpioGet</a></li><li><a href="global.html#GpioIsOpen">GpioIsOpen</a></li><li><a href="global.html#GpioIsValid">GpioIsValid</a></li><li><a href="global.html#GpioOpen">GpioOpen</a></li><li><a href="global.html#GpioSet">GpioSet</a></li><li><a href="global.html#MeshDeviceInfoRead">MeshDeviceInfoRead</a></li><li><a href="global.html#MeshDeviceInfoWrite">MeshDeviceInfoWrite</a></li><li><a href="global.html#MeshElementAdd">MeshElementAdd</a></li><li><a href="global.html#MeshLocalAddressRead">MeshLocalAddressRead</a></li><li><a href="global.html#MeshModelAddOpcode">MeshModelAddOpcode</a></li><li><a href="global.html#MeshModelCreate">MeshModelCreate</a></li><li><a href="global.html#MeshModelGenericCreate">MeshModelGenericCreate</a></li><li><a href="global.html#MeshNodeConfigRead">MeshNodeConfigRead</a></li><li><a href="global.html#MeshPublish">MeshPublish</a></li><li><a href="global.html#MeshReliablePublish">MeshReliablePublish</a></li><li><a href="global.html#MeshReply">MeshReply</a></li><li><a href="global.html#MeshSetBeaconUIDEventCallback">MeshSetBeaconUIDEventCallback</a></li><li><a href="global.html#MeshSetBeaconURLEventCallback">MeshSetBeaconURLEventCallback</a></li><li><a href="global.html#MeshSetDataEventCallback">MeshSetDataEventCallback</a></li><li><a href="global.html#MeshSetIBeaconEventCallback">MeshSetIBeaconEventCallback</a></li><li><a href="global.html#MeshSetReliableEventCallback">MeshSetReliableEventCallback</a></li><li><a href="global.html#MeshStatusReply">MeshStatusReply</a></li><li><a href="global.html#MeshVersionRead">MeshVersionRead</a></li><li><a href="global.html#MeshVersionWrite">MeshVersionWrite</a></li><li><a href="global.html#MiscAtExecute">MiscAtExecute</a></li><li><a href="global.html#StreamAsynchRead">StreamAsynchRead</a></li><li><a href="global.html#StreamConnect">StreamConnect</a></li><li><a href="global.html#StreamCreate">StreamCreate</a></li><li><a href="global.html#StreamDestroy">StreamDestroy</a></li><li><a href="global.html#StreamDisconnect">StreamDisconnect</a></li><li><a href="global.html#StreamGetAtId">StreamGetAtId</a></li><li><a href="global.html#StreamGetBtFrameSize">StreamGetBtFrameSize</a></li><li><a href="global.html#StreamGetDebugId">StreamGetDebugId</a></li><li><a href="global.html#StreamGetUartId">StreamGetUartId</a></li><li><a href="global.html#StreamGetUrl">StreamGetUrl</a></li><li><a href="global.html#StreamSend">StreamSend</a></li><li><a href="global.html#StreamStatus">StreamStatus</a></li><li><a href="global.html#SystemBleStart">SystemBleStart</a></li><li><a href="global.html#SystemDeepSleep">SystemDeepSleep</a></li><li><a href="global.html#SystemGetAvailHeap">SystemGetAvailHeap</a></li><li><a href="global.html#SystemGetRetentionValue">SystemGetRetentionValue</a></li><li><a href="global.html#SystemMeshStart">SystemMeshStart</a></li><li><a href="global.html#SystemSetRetentionValue">SystemSetRetentionValue</a></li><li><a href="global.html#SystemSetSysTickMode">SystemSetSysTickMode</a></li><li><a href="global.html#TimerStart">TimerStart</a></li><li><a href="global.html#TimerStartReoccurring">TimerStartReoccurring</a></li><li><a href="global.html#TimerStop">TimerStop</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 30 2019 09:14:52 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Tue Jul 02 2019 12:56:15 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

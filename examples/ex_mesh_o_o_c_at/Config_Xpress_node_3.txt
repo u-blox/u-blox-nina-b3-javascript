@@ -1,0 +1,8 @@
+# Bind element 0, model 0, to application key 0
+AT+UBTMAKB=0,0,0
+
+# Set publishing address for OnOff client adress 0x5000 (Server node)
+AT+UBTMPAD=0,0,5000
+
+# Restart module
+AT+CPWROFF

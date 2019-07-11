@@ -61,6 +61,18 @@ The GPIO library contains operations related to GPIO pins, like
 
 [GPIO library](ubx_gpio.md)
 
+## Mesh library
+
+The Mesh Library is implemented in the *ubx_mesh.js* file.
+
+The Mesh Library contains functionality for
+
+* Defining and creating the model to be used on the node
+* Normal and Reliable Publishing and Replying
+* Handling callbacks for Mesh events
+
+[Mesh library](ubx_mesh.md)
+
 ## Miscellaneous library
 
 The Miscellaneous library is implemented in the *ubx_misc.js* file.

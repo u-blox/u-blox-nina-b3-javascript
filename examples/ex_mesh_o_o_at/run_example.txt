@@ -1,0 +1,21 @@
+# Turn on red LED by sending Generic OnOff Set (0x8202) with parameter 01 (On) and TID 00
+AT+UBTMPUB=0,0,8202,0100
+
+# Server node responds with Generic OnOff Status (0x8204). See appendix A.9 for parameters 
++UUBTMRCV:00,0,0,8204,1,5000,1,5002,5,-53,01
+
+# Acknowledge the reception of the Status message
+AT+UBTMRPY=00
+
+# Turn off red LED by sending Generic OnOff Set Unacknowledged (0x8203) with parameter 00 (Off) 
+# + TID 00
+AT+UBTMPUB=0,0,8203,00
+# No status message for unacknowledged set
+
+# Query red LED value by sending Generic OnOff Get (0x8201)  
+AT+UBTMPUB=0,0,8201
+# Server node responds with Generic OnOff Status (0x8204). See appendix A.9 for parameters 
++UUBTMRCV:00,0,0,8204,1,5000,1,5002,5,-53,00
+
+# Acknowledge the reception of the Status message
+AT+UBTMRPY=00

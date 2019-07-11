@@ -1,0 +1,8 @@
+# Model index 0, Generic OnOff client
+AT+UBTMMODG=0,1001
+AT+UBTMELM=0,0
+AT&W
+AT+CPWROFF
+
+
+

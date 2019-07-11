@@ -1,0 +1,15 @@
+# Set network key index 0
+AT+UBTMNKY=0,5F5F6E6F726469635F5F73656D695F5F
+
+# Define  application key index 0, netkey index 0
+AT+UBTMAKY=0,0,5F116E6F726469635F5F73656D695F5F
+
+# Set unicast address for node (only 1 address in this example). Address 5002 (see chapter 1.3)
+AT+UBTMADR=5002,1
+
+# Set Device Key for node
+AT+UBTMDKY=000102030405060708090A0B0C0D0E0F
+
+# Store and reset
+AT&W
+AT+CPWROFF
