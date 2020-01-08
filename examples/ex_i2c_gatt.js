@@ -5,7 +5,7 @@
  * PreReq     : Mount the mbed shield on the EVK.
  * */
 
- /* Libraries used listed below. Uncomment or add to your init.js */
+/* Libraries used listed below. Uncomment or add to your init.js */
 
 /* 
 load('ubx_gatt_server.js');
@@ -16,12 +16,13 @@ load('ubx_stream.js');
 load('ubx_gatt_server.js');
 load('ubx_gpio.js');
 load('nina_b3_pins.js');
+load('ubx_ble_gap.js');
 */
- 
- print("Arduino shield temperature sensor over GATT I2C example");
+
+print("Arduino shield temperature sensor over GATT I2C example");
 
 let i2c = "i2c://secondary1:72/?freq=100&read_freq=2000&nr_bytes=1&no_stop=true&Init_command=0100&read_command=00";
-let i2cStreamId=0;
+let i2cStreamId = 0;
 
 let ubloxTempServiceUUID = "\xff\xe0";
 let ubloxTempCharUUID = "\xff\xe1";
@@ -34,6 +35,15 @@ let pairingstatus = bleSec.PAIRING_MODE_DISABLED;
 let gapConnectionHandle = -1;
 let isGattNotifyEnabled = false;
 
+/* Set custom advertising data, format: Length + Type + Value */
+/* See Bluetooth Core Specification, part C, chapter 11 for information on format */
+// Complete name "I2C TEMP" as scan response data (0x9=Local Name)
+let scanResp = chr(0x0A) + chr(0x09) + chr(0x49) + chr(0x32) + chr(0x43) + chr(0x20) + chr(0x20) +
+    chr(0x54) + chr(0x45) + chr(0x4D) + chr(0x50);
+
+// u-blox 16-bit temperature service UUID as advertising data (0x3 = Complete list of 16-bit service UUIDs)
+let advData = chr(0x03) + chr(0x03) + chr(0xE0) + chr(0xFF);
+
 let assert_are_equal = function (actualValue, expectedValue, errorMessage) {
     if (actualValue !== expectedValue) {
         print(errorMessage);
@@ -42,7 +52,7 @@ let assert_are_equal = function (actualValue, expectedValue, errorMessage) {
 };
 
 let erasePeersCallback = function (result, userdata) {
-    if(result !== bleSec.RESULT_OK) {
+    if (result !== bleSec.RESULT_OK) {
         print("Unbond all failed");
     }
 };
@@ -52,7 +62,7 @@ let streamEventCallback = function (id, evt, param, data, userdata) {
         let s = mkstr(data, param);
         print('Temp is', s.at(0), 'degrees celsius');
 
-        if(!isGattNotifyEnabled) {
+        if (!isGattNotifyEnabled) {
             GattsReadResp(gapConnectionHandle, s, param);
             StreamDisconnect(id);
         } else {
@@ -105,6 +115,13 @@ let result = SystemBleStart();
 assert_are_equal(result, system.RESULT_OK, "BLE system start failed");
 BleSecSetPairingMode(bleSec.PAIRING_MODE_DISABLED); //pairing disabled by default. press ctrlPin to enable pairing
 
+/* Set Adv data and scan response */
+result = BleGapSetAdvData(advData, 4, bleGap.ADV_TYPE_ADV);
+assert_are_equal(result, bleGap.RESULT_OK, "Could not set Adv message");
+
+result = BleGapSetAdvData(scanResp, 11, bleGap.ADV_TYPE_SCAN_RESPONSE);
+assert_are_equal(result, bleGap.RESULT_OK, "Could not set scan response");
+
 /* Create the i2c stream */
 i2cStreamId = StreamCreate(i2c, streamEventCallback, null);
 if (i2cStreamId < stream.RESULT_OK) {
@@ -113,10 +130,14 @@ if (i2cStreamId < stream.RESULT_OK) {
 
 /* Create the GATT interface */
 GattsSetEventCallback(gattEventCallback, null);
+/* GATT Service */
 let serviceHandle = GattsServiceCreate(gatts.UUID_TYPE_16, ubloxTempServiceUUID);
+/* GATT Characteristic */
 let charDetails = GattsCharacteristicCreate(serviceHandle, gatts.UUID_TYPE_16, ubloxTempCharUUID, gatts.PROPERTY_READ + gatts.PROPERTY_NOTIFY, securityLevel, "", 0);
-let descDetails = GattsDescriptorCreate(charDetails.valueHandle, gatts.UUID_TYPE_128, ubloxTempDesUUID, securityLevel, "\x75\x2D\x62\x6C\x6F\x78", 0x6);
-if(serviceHandle <= 0 || charDetails.result <= 0 || descDetails <= 0) {
+/* Characteristic descriptor, value "u-blox temp" */
+let descDetails = GattsDescriptorCreate(charDetails.valueHandle, gatts.UUID_TYPE_128, ubloxTempDesUUID, securityLevel,
+    "\x75\x2D\x62\x6C\x6F\x78\x20\x74\x65\x6D\x70", 0xB);
+if (serviceHandle <= 0 || charDetails.result <= 0 || descDetails <= 0) {
     die("Error: GATT Server creation Failed");
 }
 
