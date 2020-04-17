@@ -1,8 +1,8 @@
 # u-blox-nina-b3-javascript
-Repository with JavaScript libraries and examples for u-blox BLE module NINA-B3
 
-Please select branch based on the SW version of your module to get correct version
-of libraries and examples.
+Please note that as of April 2020 the u-connectScript offering from u-blox is discontinued.
+
+See the [Information Note](https://www.u-blox.com/en/docs/UBX-20012612) at the [u-blox home page](http://www.u-blox.com) for more information.
 
 ## Disclaimer
 Copyright (C) u-blox 
