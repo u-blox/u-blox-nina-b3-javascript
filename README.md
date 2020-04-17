@@ -4,8 +4,8 @@ Please note that as of April 2020 the u-connectScript offering from u-blox is di
 
 See the [Information Note](https://www.u-blox.com/en/docs/UBX-20012612) at the [u-blox home page](http://www.u-blox.com) for more information.
 
-For help on Getting Started with Mesh please refer to the *Mesh Application Note* available
-at u-blox.com: [Bluetooth Mesh with u-connect software](https://www.u-blox.com/en/search?keywords=UBX-19025268).
+For help on Getting Started with Bluetooth mesh please refer to the *Bluetooth mesh Application Note* available
+at u-blox.com: [Bluetooth mesh with u-connect software](https://www.u-blox.com/en/search?keywords=UBX-19025268).
 
 ## Disclaimer
 Copyright (C) u-blox 
