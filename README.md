@@ -1,18 +1,11 @@
 # u-blox-nina-b3-javascript
-Repository with JavaScript libraries and examples for u-blox BLE module NINA-B3
 
-Please create a workspace where you put the your application or the example
-you intend to run, together with your init file and the needed libraries.
+Please note that as of April 2020 the u-connectScript offering from u-blox is discontinued.
 
-For help on Getting Started with JavaScript please refer to the *JavaScript Application Note* available
-at u-blox.com: [u-connectScript with NINA-B3 series](https://www.u-blox.com/en/search?keywords=UBX-18031558), 
-or the videos for [NINA-B3 series on YouTube](https://www.youtube.com/playlist?list=PLSzSoRUA4EXuD4uovkz4ODPNdpdHP4DnT).
+See the [Information Note](https://www.u-blox.com/en/docs/UBX-20012612) at the [u-blox home page](http://www.u-blox.com) for more information.
 
 For help on Getting Started with Mesh please refer to the *Mesh Application Note* available
 at u-blox.com: [Bluetooth Mesh with u-connect software](https://www.u-blox.com/en/search?keywords=UBX-19025268).
-
-Also see the JavaScript API library documentation:
-[Library Documentation](libraries/docs/md/README.md)
 
 ## Disclaimer
 Copyright (C) u-blox 
